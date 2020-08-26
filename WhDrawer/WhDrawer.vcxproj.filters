@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\Canva">
+      <UniqueIdentifier>{1d266f58-0eb7-4b0c-9f69-5f727b522463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Interface">
+      <UniqueIdentifier>{94e25cdd-6d3b-4fbf-ac0f-a60d87331145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Utils">
+      <UniqueIdentifier>{aa7d78a6-9761-42b3-a74c-32141fae536e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Interface\Drawable">
+      <UniqueIdentifier>{82010a36-672e-4c41-b2e5-e89d1b15cf12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Interface\Brush">
+      <UniqueIdentifier>{b9efe3ca-f501-40d9-99ed-3df1b8060fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Utils\Graphics">
+      <UniqueIdentifier>{dbb22615-c31f-4a4b-9b01-f7520626ff7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Dependency">
+      <UniqueIdentifier>{0c403295-2fe2-4bdd-b325-e4667d44df7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Dependency\GraphicsLibrary">
+      <UniqueIdentifier>{83cc0f8d-8b52-4c6e-9fd7-c701c3b44051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Utils\Debug">
+      <UniqueIdentifier>{82703623-44e7-434b-925f-d166056acb75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Utils\Math">
+      <UniqueIdentifier>{8884a093-fab8-4458-9027-3749d730ffd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Utils\Math\Geometry">
+      <UniqueIdentifier>{74ef609e-d09a-4730-8ace-db2aef3203f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Utils\Math\Algebra">
+      <UniqueIdentifier>{f1dc0071-059a-41a7-b3cd-df81e3a019e5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Canva.cpp">
+      <Filter>头文件\Canva</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>头文件\Utils\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="EasyXGraphics.cpp">
+      <Filter>头文件\Dependency\GraphicsLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>头文件\Utils\Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Canva.h">
+      <Filter>头文件\Canva</Filter>
+    </ClInclude>
+    <ClInclude Include="IBaseDrawable.h">
+      <Filter>头文件\Interface\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="IShapeDrawable.h">
+      <Filter>头文件\Interface\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="IBrush1D.h">
+      <Filter>头文件\Interface\Brush</Filter>
+    </ClInclude>
+    <ClInclude Include="IBrush2D.h">
+      <Filter>头文件\Interface\Brush</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>头文件\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>头文件\Utils\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="EasyXGraphics.h">
+      <Filter>头文件\Dependency\GraphicsLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugString.hpp">
+      <Filter>头文件\Utils\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="IBatchMarker.h">
+      <Filter>头文件\Interface\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>头文件\Utils\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>头文件\Utils\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>头文件\Utils\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.hpp">
+      <Filter>头文件\Utils\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>头文件\Utils\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryRelation.h">
+      <Filter>头文件\Utils\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorNd.h">
+      <Filter>头文件\Utils\Math\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorAlgorithm.h">
+      <Filter>头文件\Utils\Math\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>头文件\Utils\Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
