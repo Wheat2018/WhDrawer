@@ -76,8 +76,15 @@ inline std::ostream& operator<<(std::ostream& o, GeometryRelation relation)
 	if (relation & GeometryRelation::DifferentPlane)str.Append("DifferentPlane ");
 	if (relation & GeometryRelation::Collinear)		str.Append("Collinear ");
 	if (((std::string)(str)).empty()) str.Append("Error ");
-	o << str;
-	o << "}";
-	return o;
+	return o << str << "}";
 }
 
+#include "VectorNd.h"
+
+template<typename Ty, size_t dim>
+inline std::ostream& operator<<(std::ostream& o, VectorNd<Ty, dim> vec)
+{
+	o << "{ ";
+	for (int i = 0; i < vec.size; i++) o << "["<< i << "]:" << vec.elem[i] << " ";
+	return o << "}";
+}

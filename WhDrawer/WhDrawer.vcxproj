@@ -143,7 +143,6 @@
     <ClCompile Include="Canva.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug.h" />

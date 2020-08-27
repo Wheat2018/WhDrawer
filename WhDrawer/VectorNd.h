@@ -20,8 +20,8 @@ struct VectorNd
 
 	Ty& operator[](int idx) { return elem[dim]; }
 
-	auto begin() { return std::cbegin(elem); }
-	auto end() { return std::cend(elem); }
+	auto begin()const { return std::cbegin(elem); }
+	auto end()const { return std::cend(elem); }
 
 };
 

@@ -63,9 +63,6 @@
     <ClCompile Include="EasyXGraphics.cpp">
       <Filter>头文件\Dependency\GraphicsLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="Math.cpp">
-      <Filter>头文件\Utils\Math</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canva.h">

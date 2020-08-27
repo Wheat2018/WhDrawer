@@ -55,6 +55,6 @@ enum class GeometryRelation : GeoRelType
 	Collinear = 0x80,
 };
 
-inline GeoRelType operator&(GeometryRelation r1, GeometryRelation r2) { return (GeoRelType)r1 & (GeoRelType)r2; }
+inline constexpr GeoRelType operator&(GeometryRelation r1, GeometryRelation r2) { return (GeoRelType)r1 & (GeoRelType)r2; }
 
-inline GeometryRelation operator|(GeometryRelation r1, GeometryRelation r2) { return GeometryRelation((GeoRelType)r1 | (GeoRelType)r2); }
+inline constexpr GeometryRelation operator|(GeometryRelation r1, GeometryRelation r2) { return GeometryRelation((GeoRelType)r1 | (GeoRelType)r2); }
