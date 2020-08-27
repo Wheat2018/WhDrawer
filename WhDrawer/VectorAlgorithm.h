@@ -78,6 +78,14 @@ public:
 		ForEach([&sum](auto& a, auto& b) { sum += a * b; }, v1, v2);
 		return sum;
 	}
+	/// <summary>
+	/// 向量模。（二范数）
+	/// </summary>
+	/// <typeparam name="VecTy">向量容器类型。</typeparam>
+	/// <param name="v1">向量1。</param>
+	/// <param name="v2">向量2。</param>
+	/// <returns>两向量各维度平方和的算术平方根。</returns>
+	template<typename VecTy> static inline auto Mod(VecTy v) { return sqrt(Dot(v, v)); }
 
 	/// <summary>
 	/// 向量与向量关系：无或正交或共线。
@@ -92,14 +100,7 @@ public:
 	{
 		/*
 			实现逻辑：1、向量点积为0时垂直。2、向量点积绝对值等于其模积（即夹角余弦为±1）时共线。3、其余为无。
-			注：上述点2可证明如下，若两向量共线，可表示为v2 = k * v1，两向量点积为
-			dot = x_1 * x_2 + y_1 * y_2 + ...
-				= k * (x_1^2 + y_1^2 + ...)
-			而两向量模积为
-			mop = sqrt((x_1 * x_1 + y_1 * y_1 + ...)(x_2 * x_2 + y_2 * y_2 + ...))
-				= sqrt(k^2 * (x_1^2 + y_1^2 + ...)^2)
-				= k * (x_1^2 + y_1^2 + ...)
-				= dot
+			注：上述点2可由柯西-施瓦茨不等式证得。
 		*/
 		_DataOf<VecTy> a;
 		auto dot = Dot<VecTy>(vector1, vector2);

@@ -20,8 +20,7 @@ public:
 	/// <param name="num1">浮点。</param>
 	/// <param name="num2">浮点。</param>
 	/// <returns></returns>
-	template<typename T1, typename T2>
-	static constexpr bool Equal(T1 num1, T2 num2) { return IsZero(num1 - num2); }
+	template<typename T1, typename T2> static constexpr bool Equal(const T1& num1, const T2& num2) { return IsZero(num1 - num2); }
 
 	/// <summary>
 	/// 判断某数是否为0。
@@ -29,24 +28,9 @@ public:
 	/// <typeparam name="T">数字数据类型。</typeparam>
 	/// <param name="num">数字。</param>
 	/// <returns></returns>
-	template<typename T>
-	static constexpr bool IsZero(T num) { return num == T(0); }
-
-	/// <summary>
-	/// 判断某数是否为0。浮点型特化重载。
-	/// </summary>
-	/// <param name="num">数字。</param>
-	/// <returns></returns>
-	template<>
-	static constexpr bool IsZero(float num) { return Abs(num) < eps; }
-
-	/// <summary>
-	/// 判断某数是否为0。浮点型特化重载。
-	/// </summary>
-	/// <param name="num">数字。</param>
-	/// <returns></returns>
-	template<>
-	static constexpr bool IsZero(double num) { return Abs(num) < eps; }
+	template<typename T> static constexpr bool IsZero(const T& num) { return num == T(0); }
+	template<> static constexpr bool IsZero(const float& num) { return Abs(num) < eps; }
+	template<> static constexpr bool IsZero(const double& num) { return Abs(num) < eps; }
 
 	/// <summary>
 	/// 取平方。
@@ -54,8 +38,7 @@ public:
 	/// <typeparam name="T">数据类型。</typeparam>
 	/// <param name="x">数据。</param>
 	/// <returns>平方。</returns>
-	template<typename T>
-	static constexpr T Pow2(T x) { return x * x; }
+	template<typename T> static constexpr T Pow2(const T& x) { return x * x; }
 
 	/// <summary>
 	/// 取绝对值。
@@ -63,8 +46,96 @@ public:
 	/// <typeparam name="T">数据类型。</typeparam>
 	/// <param name="x">数据。</param>
 	/// <returns>绝对值。</returns>
-	template<typename T>
-	static constexpr T Abs(T x) { return x >= 0 ? x : -x; }
+	template<typename T> static constexpr T Abs(const T& x) { return x >= 0 ? x : -x; }
+
+	/// <summary>
+	/// 取最大值。该函数需在O2优化下以达到最佳性能。
+	/// </summary>
+	template<typename T1, typename T2, typename... ArgsT> static constexpr auto& Max(T1& num1, T2& num2, ArgsT&... args) 
+	{ return Max(Max(num1, num2), args...); }
+	template<typename T1, typename T2> static constexpr auto& Max(T1& num1, T2& num2) { return num1 >= num2 ? num1 : num2; }
+
+	/// <summary>
+	/// 取最小值。该函数需在O2优化下以达到最佳性能。
+	/// </summary>
+	template<typename T1, typename T2, typename... ArgsT> static constexpr auto& Min(T1& num1, T2& num2, ArgsT&... args)
+	{
+		return Min(Min(num1, num2), args...);
+	}
+	template<typename T1, typename T2> static constexpr auto& Min(T1& num1, T2& num2) { return num1 <= num2 ? num1 : num2; }
+
+	/// <summary>
+	/// 取最大值索引。该函数需在O2优化下以达到最佳性能。
+	/// </summary>
+	template<typename T1, typename T2, typename... ArgsT> static constexpr int ArgMax(const T1& num1, const T2& num2, const ArgsT&... args)
+	{
+		int left = 0, right = 0;
+		_ArgMax(left, right, num1, num2, args...);
+		return left;
+	}
+	
+	/// <summary>
+	/// 取最小值索引。该函数需在O2优化下以达到最佳性能。
+	/// </summary>
+	template<typename T1, typename T2, typename... ArgsT> static constexpr int ArgMin(const T1& num1, const T2& num2, const ArgsT&... args)
+	{
+		int left = 0, right = 0;
+		_ArgMin(left, right, num1, num2, args...);
+		return left;
+	}
+
+	/// <summary>
+	/// 取参数列表(num1, num2, num3...)中指定索引的引用。索引值越界或不合法，都返回索引为0的引用。该函数需在O2优化下以达到最佳性能。
+	/// </summary>
+	template<typename T1, typename T2, typename... ArgsT> static constexpr auto& At(int index, T1& num1, T2& num2, ArgsT&... args)
+	{
+		int now = 0;
+		return _At(now, index, num1, num2, args...);
+	}
+
+private:
+	template<typename T1, typename T2> 
+	static constexpr auto& _ArgMax(int& left, int& right, const T1& num1, const T2& num2)
+	{
+		++right;
+		if (num1 < num2)
+		{
+			left = right;
+			return num2;
+		}
+		return num1;
+	}
+	template<typename T1, typename T2, typename... ArgsT> 
+	static constexpr auto& _ArgMax(int& left, int& right, const T1& num1, const T2& num2, const ArgsT&... args)
+	{
+		return _ArgMax(left, right, _ArgMax(left, right, num1, num2), args...);
+	}
+	template<typename T1, typename T2>
+	static constexpr auto& _ArgMin(int& left, int& right, const T1& num1, const T2& num2)
+	{
+		++right;
+		if (num1 > num2)
+		{
+			left = right;
+			return num2;
+		}
+		return num1;
+	}
+	template<typename T1, typename T2, typename... ArgsT>
+	static constexpr auto& _ArgMin(int& left, int& right, const T1& num1, const T2& num2, const ArgsT&... args)
+	{
+		return _ArgMin(left, right, _ArgMin(left, right, num1, num2), args...);
+	}
+	template<typename T1, typename T2>
+	static constexpr auto& _At(int& now, int target, T1& num1, T2& num2)
+	{
+		return ++now == target ? num2 : num1;
+	}
+	template<typename T1, typename T2, typename... ArgsT>
+	static constexpr auto& _At(int& now, int target, T1& num1, T2& num2, ArgsT&... args)
+	{
+		return _At(now, target, _At(now, target, num1, num2), args...);
+	}
 
 };
 
