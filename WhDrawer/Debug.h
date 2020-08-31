@@ -1,5 +1,5 @@
 #pragma once
-#include "DebugString.hpp"
+#include "DebugString.h"
 
 /// <summary>
 /// 仅当配置为Debug编译时，该类函数才生效。
@@ -19,6 +19,17 @@ public:
 
 
 //Print Operator
+#include "Color.h"
+inline std::ostream& operator<<(std::ostream& o, Color color)
+{
+	return o <<
+		"{ R:" << (int)color.R() <<
+		", G:" << (int)color.G() <<
+		", B:" << (int)color.B() <<
+		", A:" << (int)color.A() << " }";
+}
+
+
 #include "Point.h"
 
 inline std::ostream& operator<<(std::ostream& o, Size size)
@@ -85,6 +96,20 @@ template<typename Ty, size_t dim>
 inline std::ostream& operator<<(std::ostream& o, VectorNd<Ty, dim> vec)
 {
 	o << "{ ";
-	for (int i = 0; i < vec.size; i++) o << "["<< i << "]:" << vec.elem[i] << " ";
+	for (int i = 0; i < vec.size; i++) o << "["<< i << "]:" << vec[i] << " ";
 	return o << "}";
 }
+
+#include "MatrixNd.h"
+
+template<typename Ty, size_t rows, size_t cols>
+inline std::ostream& operator<<(std::ostream& o, MatrixNd<Ty, rows, cols> mat)
+{
+	o << "{" << std::endl;
+	for (int i = 0; i < rows; i++)
+	{
+		o << "  [" << i << "]:" << *((VectorNd<Ty, cols>*)mat[i]) << std::endl;
+	}
+	return o << "}";
+}
+

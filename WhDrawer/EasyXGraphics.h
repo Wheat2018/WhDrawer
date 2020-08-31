@@ -1,7 +1,7 @@
 #pragma once
 #include "IBaseDrawable.h"
 #include "IBatchMarker.h"
-
+#include <windows.h>
 /// <summary>
 /// 使用EasyX图形库实现的基本绘图接口及批量绘图标记接口。
 /// </summary>
@@ -33,6 +33,7 @@ public:
 	virtual const size_t Cols() override;
 	virtual void DrawPixel(int x, int y, Color color) override;
 	virtual Color GetPixel(int x, int y) override;
+	virtual void Clean(Color color = Color()) override;
 
 	// 通过 IBatchMarker 继承
 
@@ -42,6 +43,7 @@ public:
 
 private:
 	size_t rows, cols;
-
+	DWORD* pMem;
+	RECT screen;
 };
 

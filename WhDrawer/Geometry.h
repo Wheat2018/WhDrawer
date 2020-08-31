@@ -7,8 +7,11 @@
 
 /// <summary>
 /// 几何算术类，提供各类几何算法。
+/// <para>注：使用类静态算法需提供浮点判零方法。</para>
+/// <para>浮点判零方法：要求一个包含静态方法IsZero(T)的类，方法返回所给数字是否为0的布尔值。</para>
 /// </summary>
-class Geometry
+template<typename FloatZeroJudger = DefaultFloatZeroJudger>
+class _Geometry
 {
 public:
 #define _StaInCst static inline constexpr
@@ -23,6 +26,7 @@ public:
 	template<typename PlaneTy> using _E = Plane3D<PlaneTy>;
 
 	using _Rel = GeometryRelation;
+	using _Mth = _Math<FloatZeroJudger>;
 
 	//Operator
 #define Operator2D(p1, p2, opt) {p1.x opt p2.x, p1.y opt p2.y};
@@ -105,10 +109,10 @@ public:
 			实现逻辑：1、向量点积为0时垂直。2、向量点积绝对值等于其模积（即夹角余弦为±1）时共线。3、其余为无。
 		*/
 		auto dot = Dot(vector1, vector2);
-		if (Math::IsZero(dot)) return _Rel::Perpendicular;
+		if (_Mth::IsZero(dot)) return _Rel::Perpendicular;
 
 		auto mod_product_squr = Dot(vector1, vector1) * Dot(vector2, vector2);
-		if (Math::Equal(Math::Abs(Math::Pow2(dot)), mod_product_squr)) return _Rel::Collinear;
+		if (_Mth::Equal(_Mth::Abs(_Mth::Pow2(dot)), mod_product_squr)) return _Rel::Collinear;
 
 		return _Rel::None;
 	}
@@ -124,7 +128,7 @@ public:
 	/// <returns>几何关系枚举。None或Coincident。</returns>
 	template<typename T1, typename T2> _StaInCst _Rel Relation(_P2<T1> point1, _P2<T2> point2)
 	{
-		if (Math::Equal(point1.x, point2.x) && Math::Equal(point1.y, point2.y))
+		if (_Mth::Equal(point1.x, point2.x) && _Mth::Equal(point1.y, point2.y))
 			return _Rel::Coincident;
 		return _Rel::None;
 	}
@@ -138,7 +142,7 @@ public:
 	/// <returns>几何关系枚举。None或Coincident。</returns>
 	template<typename T1, typename T2> _StaInCst _Rel Relation(_P3<T1> point1, _P3<T2> point2)
 	{
-		if (Math::Equal(point1.x, point2.x) && Math::Equal(point1.y, point2.y) && Math::Equal(point1.z, point2.z))
+		if (_Mth::Equal(point1.x, point2.x) && _Mth::Equal(point1.y, point2.y) && _Mth::Equal(point1.z, point2.z))
 			return _Rel::Coincident;
 		return _Rel::None;
 	}
@@ -157,7 +161,7 @@ public:
 		/*
 			实现逻辑：代入一般式。
 		*/
-		if (Math::IsZero(line.A * point.x + line.B * point.y + line.C))
+		if (_Mth::IsZero(line.A * point.x + line.B * point.y + line.C))
 			return _Rel::Contained;
 		return _Rel::None;
 	}
@@ -271,7 +275,7 @@ public:
 		/*
 			实现逻辑：代入一般式。
 		*/
-		if (Math::IsZero(plane.A * point.x + plane.B * point.y + plane.C * point.z + plane.D))
+		if (_Mth::IsZero(plane.A * point.x + plane.B * point.y + plane.C * point.z + plane.D))
 			return _Rel::Contained;
 		return _Rel::None;
 	}
@@ -313,7 +317,7 @@ public:
 	/// <param name="plane1">三维平面1。</param>
 	/// <param name="plane2">三维平面2。</param>
 	/// <returns>几何关系枚举。Coincident或Paralled或Intersectant或(Perpendicular|Intersectant)。</returns>
-	template<typename T1, typename T2> _StaIn _Rel Relation(_E<T1> plane1, _E<T2> plane2)
+	template<typename T1, typename T2> _StaInCst _Rel Relation(_E<T1> plane1, _E<T2> plane2)
 	{
 		/*
 			实现逻辑：若两面的法向量 1、正交，则两面垂直，2、既不正交也不共线，则两面相交，3、共线，
@@ -328,11 +332,9 @@ public:
 		if (nRel & _Rel::None)
 			return _Rel::Intersectant;
 
-		using _T = upper_t<T1, T2>;
-		using _V4 = VectorNd<_T, 4>;
 		_Rel abcdRel = VecAlgo::Relation(
-			_V4{ (_T)plane1.A, (_T)plane1.B, (_T)plane1.C, (_T)plane1.D }, 
-			_V4{ (_T)plane2.A, (_T)plane2.B, (_T)plane2.C, (_T)plane2.D });
+			VectorNd<T1, 4>{ plane1.A, plane1.B, plane1.C, plane1.D },
+			VectorNd<T2, 4>{ plane2.A, plane2.B, plane2.C, plane2.D });
 		if (abcdRel & _Rel::Collinear)
 			return _Rel::Coincident;
 		return _Rel::Paralled;
@@ -350,7 +352,7 @@ public:
 	/// <returns>欧氏距离。</returns>
 	template<typename T1, typename T2> _StaIn double Distance(_P2<T1> point1, _P2<T2> point2)
 	{
-		return sqrt(Math::Pow2(point1.x - point2.x) + Math::Pow2(point1.y - point2.y));
+		return sqrt(_Mth::Pow2(point1.x - point2.x) + _Mth::Pow2(point1.y - point2.y));
 	}
 	/// <summary>
 	/// 三维点欧氏距离。
@@ -362,7 +364,7 @@ public:
 	/// <returns>欧氏距离。</returns>
 	template<typename T1, typename T2> _StaIn double Distance(_P3<T1> point1, _P3<T2> point2)
 	{
-		return sqrt(Math::Pow2(point1.x - point2.x) + Math::Pow2(point1.y - point2.y) + Math::Pow2(point1.z - point2.z));
+		return sqrt(_Mth::Pow2(point1.x - point2.x) + _Mth::Pow2(point1.y - point2.y) + _Mth::Pow2(point1.z - point2.z));
 	}
 
 	//点与线
@@ -382,7 +384,7 @@ public:
 			d = -----------------------
 					sqrt(A^2 + B^2)
 		*/
-		return Math::Abs(line.A * point.x + line.B * point.y + line.C) / sqrt(Math::Pow2(line.A) + Math::Pow2(line.B));
+		return _Mth::Abs(line.A * point.x + line.B * point.y + line.C) / sqrt(_Mth::Pow2(line.A) + _Mth::Pow2(line.B));
 	}
 	/// <summary>
 	/// 点与直线欧氏距离。
@@ -425,8 +427,8 @@ public:
 		if (!(dRel & _Rel::Collinear))
 			return 0.0;
 
-		double k = (Math::Abs(line1.A) + Math::Abs(line1.B)) / (Math::Abs(line2.A) + Math::Abs(line2.B));
-		return Math::Abs(line1.C - k * line2.C) / sqrt(Math::Pow2(line1.A) + Math::Pow2(line1.B));
+		double k = (_Mth::Abs(line1.A) + _Mth::Abs(line1.B)) / (_Mth::Abs(line2.A) + _Mth::Abs(line2.B));
+		return _Mth::Abs(line1.C - k * line2.C) / sqrt(_Mth::Pow2(line1.A) + _Mth::Pow2(line1.B));
 	}
 	/// <summary>
 	/// 直线与直线欧氏距离。相交直线距离为0。
@@ -450,7 +452,7 @@ public:
 
 		auto dot_n_line3v = Dot(line3v, n);
 
-		if (!Math::IsZero(dot_n_line3v))
+		if (!_Mth::IsZero(dot_n_line3v))
 			return dot_n_line3v / sqrt(Dot(n, n));
 
 		_Rel line1v_line2v = VectorRelation(line1v, line2v);
@@ -477,8 +479,8 @@ public:
 			d = ---------------------------------
 					sqrt(A^2 + B^2 + C^2)
 		*/
-		return Math::Abs(plane.A * point.x + plane.B * point.y + plane.C * point.z + plane.D) /
-			sqrt(Math::Pow2(plane.A) + Math::Pow2(plane.B) + Math::Pow2(plane.C));
+		return _Mth::Abs(plane.A * point.x + plane.B * point.y + plane.C * point.z + plane.D) /
+			sqrt(_Mth::Pow2(plane.A) + _Mth::Pow2(plane.B) + _Mth::Pow2(plane.C));
 	}
 
 	//线与面
@@ -524,9 +526,9 @@ public:
 		if (!(dRel & _Rel::Collinear))
 			return 0.0;
 
-		double k = (Math::Abs(plane1.A) + Math::Abs(plane1.B) + Math::Abs(plane1.C)) / 
-			(Math::Abs(plane2.A) + Math::Abs(plane2.B) + Math::Abs(plane2.C));
-		return Math::Abs(plane1.C - k * plane2.C) / sqrt(Math::Pow2(plane1.A) + Math::Pow2(plane1.B) + Math::Pow2(plane1.C));
+		double k = (_Mth::Abs(plane1.A) + _Mth::Abs(plane1.B) + _Mth::Abs(plane1.C)) / 
+			(_Mth::Abs(plane2.A) + _Mth::Abs(plane2.B) + _Mth::Abs(plane2.C));
+		return _Mth::Abs(plane1.C - k * plane2.C) / sqrt(_Mth::Pow2(plane1.A) + _Mth::Pow2(plane1.B) + _Mth::Pow2(plane1.C));
 	}
 
 
@@ -560,3 +562,7 @@ public:
 
 };
 
+/// <summary>
+/// 几何算术类，提供各类几何算法。
+/// </summary>
+typedef _Geometry<> Geometry;

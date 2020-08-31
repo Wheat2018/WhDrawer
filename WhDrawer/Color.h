@@ -74,7 +74,7 @@ public:
 	/// 通过颜色枚举构造颜色值。
 	/// </summary>
 	/// <param name="color">颜色枚举。</param>
-	inline Color(ColorEnum color) { FromRGBA((DWORD)color); }
+	inline Color(ColorEnum color) { FromBGRA((DWORD)color); }
 
 
 	//Properties
@@ -132,16 +132,6 @@ public:
 	/// <param name="rgba">BGRA值。</param>
 	/// <returns>自身引用</returns>
 	inline Color& FromBGRA(DWORD bgra) { return FromRGBA(RGBA(bgra)); }
-
-	//Print
-	friend inline std::ostream& operator<<(std::ostream& o, Color color)
-	{
-		return o <<
-			"{ R:" << (int)color.R() <<
-			", G:" << (int)color.G() << 
-			", B:" << (int)color.B() << 
-			", A:" << (int)color.A() << " }";
-	}
 
 private:
 	union BytesDword

@@ -49,6 +49,9 @@
     <Filter Include="头文件\Utils\Math\Algebra">
       <UniqueIdentifier>{f1dc0071-059a-41a7-b3cd-df81e3a019e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Utils\Brushes">
+      <UniqueIdentifier>{f9816756-9598-4103-9f00-f957c7352c44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="EasyXGraphics.cpp">
       <Filter>头文件\Dependency\GraphicsLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="GradientBrush2D.cpp">
+      <Filter>头文件\Utils\Brushes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,9 +95,6 @@
     <ClInclude Include="EasyXGraphics.h">
       <Filter>头文件\Dependency\GraphicsLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="DebugString.hpp">
-      <Filter>头文件\Utils\Debug</Filter>
-    </ClInclude>
     <ClInclude Include="IBatchMarker.h">
       <Filter>头文件\Interface\Drawable</Filter>
     </ClInclude>
@@ -102,9 +105,6 @@
       <Filter>头文件\Utils\Math\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Line.h">
-      <Filter>头文件\Utils\Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Geometry.hpp">
       <Filter>头文件\Utils\Math\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Plane.h">
@@ -122,5 +122,23 @@
     <ClInclude Include="Math.h">
       <Filter>头文件\Utils\Math</Filter>
     </ClInclude>
+    <ClInclude Include="MatrixNd.h">
+      <Filter>头文件\Utils\Math\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixAlgorithm.h">
+      <Filter>头文件\Utils\Math\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>头文件\Utils\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugString.h">
+      <Filter>头文件\Utils\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="GradientBrush2D.h">
+      <Filter>头文件\Utils\Brushes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

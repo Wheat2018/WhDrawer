@@ -17,12 +17,18 @@ struct IShapeDrawable : public IBaseDrawable
 	virtual IBaseDrawable* BaseDrawable() = 0;
 
 	/// <summary>
+	/// 设置默认颜色。在使用画刷接口的函数中，给定nullptr的接口实例，将以默认颜色纯色绘制。
+	/// </summary>
+	/// <param name="color">默认颜色。</param>
+	virtual void SetDefaultColor(Color color) = 0;
+
+	/// <summary>
 	/// 绘制线条。
 	/// </summary>
 	/// <param name="p1">起始点。</param>
 	/// <param name="p2">终止点。</param>
 	/// <param name="brush">线条填充样式。</param>
-	virtual void Line(Point p1, Point p2, const IBrush1D& brush) = 0;
+	virtual void DrawLine(Point p1, Point p2, IBrush1D * brush) = 0;
 
 	/// <summary>
 	/// 绘制封闭凸多边形。
@@ -30,7 +36,7 @@ struct IShapeDrawable : public IBaseDrawable
 	/// <param name="ps">封闭顶点集。顺时针首尾相连的顶点数组。</param>
 	/// <param name="ps_num">顶点数。封闭顶点集数组长度，若不匹配可能造成越界访问。</param>
 	/// <param name="brush">线条填充样式。</param>
-	virtual void Polygon(Point ps[], int ps_num, const IBrush1D& brush) = 0;
+	virtual void DrawPolygon(const Point ps[], int ps_num, IBrush1D * brush) = 0;
 
 	/// <summary>
 	/// 绘制填充封闭凸多边形。
@@ -38,6 +44,6 @@ struct IShapeDrawable : public IBaseDrawable
 	/// <param name="ps">封闭顶点集。顺时针首尾相连的顶点数组。</param>
 	/// <param name="ps_num">顶点数。封闭顶点集数组长度，若不匹配可能造成越界访问。</param>
 	/// <param name="brush">形状面填充样式。</param>
-	virtual void FillPolygon(Point ps[], int ps_num, const IBrush1D& brush) = 0;
+	virtual void FillPolygon(const Point ps[], int ps_num, IBrush2D * brush) = 0;
 
 };

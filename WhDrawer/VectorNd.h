@@ -18,10 +18,11 @@ struct VectorNd
 	/// </summary>
 	Ty elem[dim];
 
-	Ty& operator[](int idx) { return elem[dim]; }
+	constexpr inline Ty& operator[](int idx) { return elem[idx]; }
+	constexpr inline const Ty& operator[](int idx)const { return elem[idx]; }
 
-	auto begin()const { return std::cbegin(elem); }
-	auto end()const { return std::cend(elem); }
+	constexpr inline auto begin()const { return std::cbegin(elem); }
+	constexpr inline auto end()const { return std::cend(elem); }
 
 };
 

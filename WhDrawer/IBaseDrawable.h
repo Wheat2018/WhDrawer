@@ -35,5 +35,11 @@ struct IBaseDrawable
 	/// <param name="y">纵坐标（行数）</param>
 	/// <returns>点的颜色。</returns>
 	virtual Color GetPixel(int x, int y) = 0;
+
+	/// <summary>
+	/// 使用指定颜色清空设备。
+	/// </summary>
+	/// <param name="color">背景色。</param>
+	virtual void Clean(Color color = Color()) = 0;
 };
 

@@ -59,15 +59,19 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\WheatAPI\source\WheatAPI.Cpp.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\WheatAPI\source\WheatAPI.Cpp.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\WheatAPI\source\WheatAPI.Cpp.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\WheatAPI\source\WheatAPI.Cpp.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -141,17 +145,19 @@
   <ItemGroup>
     <ClCompile Include="EasyXGraphics.cpp" />
     <ClCompile Include="Canva.cpp" />
+    <ClCompile Include="GradientBrush2D.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="DebugString.hpp" />
+    <ClInclude Include="DebugString.h" />
     <ClInclude Include="EasyXGraphics.h" />
     <ClInclude Include="Canva.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="Geometry.hpp" />
+    <ClInclude Include="Geometry.h" />
     <ClInclude Include="GeometryRelation.h" />
+    <ClInclude Include="GradientBrush2D.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IBaseDrawable.h" />
     <ClInclude Include="IBatchMarker.h" />
@@ -160,10 +166,15 @@
     <ClInclude Include="IBrush2D.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="MatrixAlgorithm.h" />
+    <ClInclude Include="MatrixNd.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="VectorAlgorithm.h" />
     <ClInclude Include="VectorNd.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
